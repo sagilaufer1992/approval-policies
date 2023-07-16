@@ -4,7 +4,7 @@ package env0
 # title: requires approval for more than 5 planned resources
 # description: require approval on more than 5 planned resources
 pending[format(rego.metadata.rule())] {
-	count(input.plan.planned_values.resource_changes) >= 5
+	count(input.plan.resource_changes) >= 5
 	count(input.approvers) < 1
 }
 
@@ -19,7 +19,7 @@ allow[format(rego.metadata.rule())] {
 # title: allow if less than 5 resources in the plan
 # description: approve automatically if the plan has less than 5 resources
 allow[format(rego.metadata.rule())] {
-	input.plan.planned_values.resources < 5
+	count(input.plan.resource_changes) < 5
 }
 
 format(meta) := meta.description
