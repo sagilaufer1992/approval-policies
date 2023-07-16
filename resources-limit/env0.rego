@@ -5,15 +5,14 @@ package env0
 # description: require approval on more than 5 planned resources
 pending[format(rego.metadata.rule())] {
 	input.plan.planned_values.resources > 5
-	input.requestingUser.role != "ADMIN"
-	count(input.approvers) > 1
+	count(input.approvers) < 1
 }
 
 # METADATA
 # title: Admin is allowed to approve
 # description: admin is allowed to approve any deployment
 allow[format(rego.metadata.rule())] {
-	input.requestingUser.role == "ADMIN"
+	count(input.approvers) > 1
 }
 
 # METADATA
