@@ -1,10 +1,10 @@
 package env0
 
 # METADATA
-# title: deny destroys
-# description: destroys are not allowed in this project
+# title: deny for non-main revisions
+# description: deny if deployment revision is not "main" or "master"
 deny[format(rego.metadata.rule())] {
-    allowed_revisions = ["main", "master"]
+    allowed_revisions = { "main", "master" }
 	not allowed_revisions[input.deploymentRequest.revision]
 }
 
